@@ -40,7 +40,7 @@ export default function HomeScreen({ profile, onSelectCategory, onLogout, onStar
              <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
                <Sparkles size={12} />
              </div>
-             <span className="font-semibold tracking-[0.2em] uppercase text-xs">Vitalis IA</span>
+             <span className="font-semibold tracking-[0.2em] uppercase text-xs">Unidos AI</span>
           </div>
 
           {/* Nav Links (Desktop) */}
@@ -96,7 +96,7 @@ export default function HomeScreen({ profile, onSelectCategory, onLogout, onStar
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="text-lg md:text-xl text-zinc-400 font-light leading-relaxed max-w-2xl mx-auto mb-10"
           >
-            Bienvenido a Vitalis IA. Una plataforma de acompañamiento emocional y estratégico que utiliza inteligencia artificial avanzada para escucharte y guiarte en tiempo real, 24/7 y con total privacidad.
+            Bienvenido a Unidos AI. Una plataforma de acompañamiento emocional y estratégico que utiliza inteligencia artificial avanzada para escucharte y guiarte en tiempo real, 24/7 y con total privacidad.
           </motion.p>
           
           <motion.div
@@ -147,7 +147,7 @@ export default function HomeScreen({ profile, onSelectCategory, onLogout, onStar
       <section className="py-24 px-6 bg-zinc-950">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-display font-medium tracking-tight mb-4">¿Por qué Vitalis?</h2>
+            <h2 className="text-3xl font-display font-medium tracking-tight mb-4">¿Por qué Unidos?</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
             <motion.div 
@@ -290,7 +290,7 @@ export default function HomeScreen({ profile, onSelectCategory, onLogout, onStar
              <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white">
                <Sparkles size={12} />
              </div>
-             <span className="font-semibold tracking-[0.2em] uppercase text-xs">Vitalis IA</span>
+             <span className="font-semibold tracking-[0.2em] uppercase text-xs">Unidos AI</span>
           </div>
           <p className="text-zinc-500 text-sm font-light mb-8 flex items-center gap-2">
             Tecnología al servicio del bienestar humano <Heart size={14} className="text-indigo-500/50" />

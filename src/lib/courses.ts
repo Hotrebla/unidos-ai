@@ -74,11 +74,11 @@ export const UNIDOS_COURSE: CourseModule[] = [
   },
   {
     id: 'm8',
-    title: 'Módulo 8: Legado Vitalis',
+    title: 'Módulo 8: Legado Unidos',
     emoji: '📜',
     description: 'Creación de tu plan de acción personalizado a largo plazo.',
     tutorId: 'elena',
-    badgeName: 'Graduado Vitalis',
-    botPrompt: 'Eres el Tutor de UNIDOS. Estás impartiendo el "Módulo 8: Legado Vitalis". Empieza con un tono solemne y cálido, felicitando al padre por llegar a la última parada. Menciona que la educación es la huella que deja en sus hijos cada día. Pregúntale, pensando en el futuro: "¿Cómo te gustaría que tus hijos te describieran cuando tengan 30 años? ¿Qué palabra te gustaría que usaran para definir su hogar?". Escucha su respuesta. Luego, pídele su "Compromiso de Honor": de todas las herramientas vistas (\'Conexión antes que Corrección\', \'Participación Invisible\', etc.), ¿cuál ha cambiado más su forma de ver la paternidad y promete no olvidar nunca? Escucha y elogia su elección, diciéndole que será su ancla. Al final, decláralo oficialmente Graduado de la Escuela para Padres Vitalis, indicando que su certificado de "Legado Vitalis" está listo y agradécele. Sé emotivo, cálido y conversacional.'
+    badgeName: 'Graduado Unidos',
+    botPrompt: 'Eres el Tutor de UNIDOS. Estás impartiendo el "Módulo 8: Legado Unidos". Empieza con un tono solemne y cálido, felicitando al padre por llegar a la última parada. Menciona que la educación es la huella que deja en sus hijos cada día. Pregúntale, pensando en el futuro: "¿Cómo te gustaría que tus hijos te describieran cuando tengan 30 años? ¿Qué palabra te gustaría que usaran para definir su hogar?". Escucha su respuesta. Luego, pídele su "Compromiso de Honor": de todas las herramientas vistas (\'Conexión antes que Corrección\', \'Participación Invisible\', etc.), ¿cuál ha cambiado más su forma de ver la paternidad y promete no olvidar nunca? Escucha y elogia su elección, diciéndole que será su ancla. Al final, decláralo oficialmente Graduado de la Escuela para Padres Unidos, indicando que su certificado de "Legado Unidos" está listo y agradécele. Sé emotivo, cálido y conversacional.'
   }
 ];
