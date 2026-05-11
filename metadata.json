@@ -1,0 +1,8 @@
+{
+  "name": "Fredo - AI Psicólogo",
+  "description": "Tu coach psicológico de IA",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": []
+}
