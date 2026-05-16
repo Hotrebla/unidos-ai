@@ -40,32 +40,46 @@ export default function CategoryDetailsScreen({ categoryId, profile, onBack, onS
   const unlockedMods = profile.unlockedModules || ['m1'];
 
   return (
-    <div className="flex flex-col min-h-screen p-6 relative bg-[#050505] overflow-y-auto pb-24">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-900/10 rounded-full blur-[120px] pointer-events-none" />
-
+    <div className="flex flex-col min-h-screen p-6 relative bg-transparent overflow-y-auto pb-24 scrollbar-hide">
       <header className="pt-6 mb-10 relative z-10">
         <div className="flex items-center justify-between mb-10">
-          <button onClick={onBack} className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium bg-transparent border-none">
-            <ArrowLeft size={18} />
+          <button onClick={onBack} className="flex items-center gap-2 text-zinc-500 hover:text-white transition-all duration-300 text-xs font-semibold uppercase tracking-widest bg-white/5 px-3 py-1.5 rounded-full border border-white/5 hover:border-white/20">
+            <ArrowLeft size={14} />
             <span>Volver</span>
           </button>
-          <div className="flex items-center gap-2 opacity-50">
-             <span className="text-sm">🪷</span>
-             <span className="font-semibold tracking-[0.2em] uppercase text-[10px]">Vitalis IA</span>
+          <div className="flex items-center gap-2 opacity-30">
+             <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center text-white">
+               <Sparkles size={10} />
+             </div>
+             <span className="font-semibold tracking-[0.2em] uppercase text-[9px] text-white">Unidos AI</span>
           </div>
         </div>
         
-        <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${category.iconBgClass} border border-white/5 text-xs font-semibold mb-5 uppercase tracking-[0.1em]`}>
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${category.iconBgClass} border border-white/10 text-[10px] font-bold mb-6 uppercase tracking-[0.15em] shadow-lg shadow-black/20`}
+        >
           <IconComponent size={14} />
-          <span>Categoría</span>
-        </div>
+          <span>Contenido Académico</span>
+        </motion.div>
         
-        <h1 className="text-4xl font-display font-medium tracking-tight mb-4 leading-tight">
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-4xl font-display font-medium tracking-tight mb-4 leading-tight text-white"
+        >
           {category.title}
-        </h1>
-        <p className="text-gray-400 font-light leading-relaxed max-w-sm text-base">
+        </motion.h1>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-zinc-400 font-light leading-relaxed max-w-sm text-sm"
+        >
           {category.description}
-        </p>
+        </motion.p>
       </header>
 
       {categoryId === 'padres' && (
@@ -130,21 +144,22 @@ export default function CategoryDetailsScreen({ categoryId, profile, onBack, onS
 
                       {/* Card */}
                       <motion.div
-                        whileHover={actuallyUnlocked ? { scale: 1.02 } : {}}
+                        whileHover={actuallyUnlocked ? { scale: 1.01, translateY: -2 } : {}}
                         onClick={() => { if(actuallyUnlocked) onSelectExpert(mod.tutorId, mod.id) }}
-                        className={`flex-1 p-5 rounded-3xl border transition-all ${actuallyUnlocked ? 'cursor-pointer' : ''} ${
-                          isActive ? 'bg-amber-500/10 border-amber-500/30' :
-                          isCompleted ? 'bg-zinc-900/60 border-zinc-800 hover:border-zinc-700' :
-                          'bg-zinc-950 border-zinc-900 opacity-60'
+                        className={`flex-1 p-6 rounded-[2rem] border transition-all duration-500 ${actuallyUnlocked ? 'cursor-pointer' : ''} ${
+                          isActive ? 'glass border-amber-500/40 shadow-[0_20px_50px_rgba(245,158,11,0.1)]' :
+                          isCompleted ? 'bg-zinc-900/30 border-zinc-800/50 hover:border-zinc-700/50' :
+                          'bg-zinc-950/20 border-zinc-900/30 opacity-40'
                         }`}
                       >
-                         <div className="flex items-center justify-between mb-2">
-                            <span className={`text-xs font-semibold tracking-wider uppercase ${isActive ? 'text-amber-500' : isCompleted ? 'text-zinc-500' : 'text-zinc-600'}`}>
+                         <div className="flex items-center justify-between mb-3">
+                            <span className={`text-[10px] font-bold tracking-[0.2em] uppercase ${isActive ? 'text-amber-500' : isCompleted ? 'text-zinc-500' : 'text-zinc-600'}`}>
                               Módulo {index + 1}
                             </span>
+                            {isCompleted && <CheckCircle2 size={14} className="text-amber-500/50" />}
                          </div>
-                         <h3 className={`text-lg font-medium mb-2 ${actuallyUnlocked ? 'text-white' : 'text-zinc-500'}`}>{mod.emoji} {mod.title.replace(`Módulo ${index+1}: `, '')}</h3>
-                         <p className={`text-sm leading-relaxed ${actuallyUnlocked ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                         <h3 className={`text-xl font-display font-medium mb-3 ${actuallyUnlocked ? 'text-white' : 'text-zinc-500'}`}>{mod.emoji} {mod.title.replace(`Módulo ${index+1}: `, '')}</h3>
+                         <p className={`text-xs leading-relaxed font-light ${actuallyUnlocked ? 'text-zinc-400' : 'text-zinc-600'}`}>
                            {mod.description}
                          </p>
                       </motion.div>
@@ -154,18 +169,19 @@ export default function CategoryDetailsScreen({ categoryId, profile, onBack, onS
             </div>
           </div>
           
-          {/* Círculo Vitalis (Comunidad) */}
+          {/* Círculo Unidos (Comunidad) */}
           <div className="mt-20">
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-px bg-white/10 flex-1" />
-              <h2 className="text-sm text-indigo-400 font-semibold tracking-widest uppercase flex items-center gap-2">
-                <Users size={14} /> El Círculo Vitalis
+              <div className="h-px bg-white/5 flex-1" />
+              <h2 className="text-[10px] text-zinc-500 font-bold tracking-[0.3em] uppercase flex items-center gap-2">
+                <Users size={12} /> Círculo de Resiliencia
               </h2>
-              <div className="h-px bg-white/10 flex-1" />
+              <div className="h-px bg-white/5 flex-1" />
             </div>
 
-            <div className="bg-zinc-900/40 border border-zinc-800/80 rounded-3xl p-6">
-               <h3 className="text-white font-medium mb-1">Duda destacada de hoy</h3>
+            <div className="glass border-white/5 rounded-[2.5rem] p-8 relative overflow-hidden">
+               <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-3xl rounded-full" />
+               <h3 className="text-white font-display text-lg font-medium mb-2">Duda de la comunidad</h3>
                {unlockedMods.includes('m5') ? (
                  <>
                    <p className="text-sm text-zinc-400 mb-6">"¿Qué recomiendan preguntar en las reuniones de padres?"</p>

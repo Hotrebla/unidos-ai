@@ -194,7 +194,7 @@ export default function TutorSessionScreen({ tutor, profile, courseModuleId, onE
              className="text-gray-400 mb-8 max-w-sm font-light leading-relaxed px-4"
            >
              {courseModuleId === 'm8' ? (
-                <>Has completado el 100% de la Escuela para Padres Vitalis. Ahora tienes un plan de ruta familiar claro. 🎉</>
+                <>Has completado el 100% del programa de Resiliencia Familiar en Unidos AI. Ahora tienes las herramientas para transformar tu hogar. 🎉</>
              ) : (
                 <>Has asimilado conceptos clave sobre <strong>{mod?.title.replace(/Módulo \d+: /, '')}</strong>. Cada minuto que inviertes aquí, estás construyendo un mejor futuro para tu familia.</>
              )}
@@ -219,7 +219,7 @@ export default function TutorSessionScreen({ tutor, profile, courseModuleId, onE
                onClick={() => finishAndSave(sessionSummary)}
                className="w-full bg-white text-black font-semibold py-4 rounded-full transition-transform hover:scale-[1.02]"
              >
-               {courseModuleId === 'm8' ? 'Ir al Círculo Vitalis' : 'Continuar Ruta'}
+               {courseModuleId === 'm8' ? 'Ir al Círculo Unidos' : 'Continuar Ruta'}
              </button>
            </motion.div>
         </div>
@@ -229,24 +229,28 @@ export default function TutorSessionScreen({ tutor, profile, courseModuleId, onE
   const isSos = courseModuleId === 'sos';
   const module = courseModuleId && !isSos ? UNIDOS_COURSE.find(m => m.id === courseModuleId) : null;
 
-  return (
-    <div className={`flex flex-col h-full min-h-screen relative p-6 justify-between ${isSos ? 'bg-[#1a0505]' : 'bg-[#050505]'}`}>
-       <header className="flex justify-between items-start z-10 pt-4 gap-4">
+   return (
+    <div className={`flex flex-col h-full min-h-screen relative p-6 justify-between bg-transparent overflow-hidden`}>
+       <div className="grain opacity-10" />
+       <header className="flex justify-between items-center z-10 pt-4 gap-4">
          {module ? (
            <div className="flex flex-col">
-             <p className="text-xs tracking-widest uppercase font-semibold text-amber-500 mb-1">Clase con {tutor.name}</p>
+             <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-amber-500/80 mb-1">Módulo de Formación</p>
              <p className="text-sm font-medium text-white line-clamp-1">{module.emoji} {module.title}</p>
            </div>
          ) : isSos ? (
            <div className="flex flex-col">
-             <p className="text-xs tracking-widest uppercase font-semibold text-red-500 mb-1">Sesión de Crisis</p>
-             <p className="text-sm font-medium text-white line-clamp-1">🚨 S.O.S.</p>
+             <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-red-500 mb-1">Intervención Urgente</p>
+             <p className="text-sm font-medium text-white">🚨 S.O.S. Crisis</p>
            </div>
          ) : (
-           <p className="text-sm tracking-widest uppercase font-semibold text-gray-500">Sesión Especializada</p>
+           <div className="flex flex-col">
+             <p className="text-[10px] tracking-[0.25em] uppercase font-bold text-indigo-400 mb-1">Consultoría Personalizada</p>
+             <p className="text-sm font-medium text-white">Sesión con {tutor.name}</p>
+           </div>
          )}
-         <button onClick={handleEndSession} className="text-gray-600 hover:text-white transition-colors bg-white/5 px-4 py-2 rounded-full text-sm">
-            Finalizar
+         <button onClick={handleEndSession} className="text-zinc-500 hover:text-white transition-all duration-300 bg-white/5 border border-white/5 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-widest">
+            Salir
          </button>
        </header>
 
