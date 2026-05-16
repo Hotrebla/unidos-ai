@@ -81,11 +81,15 @@ export default function App() {
   const currentTutor = TUTORS.find(t => t.id === selectedExpert);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans selection:bg-indigo-500 selection:text-white grain overflow-x-hidden">
-      {/* Background Auras for Depth */}
+    <div className="min-h-screen bg-zinc-950 text-zinc-50 font-sans overflow-x-hidden grain">
+      {/* Background Auras — Unidos Teal Palette */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px] aura-animate" />
-        <div className="absolute top-[60%] -right-[5%] w-[30%] h-[50%] bg-amber-600/5 rounded-full blur-[100px] aura-animate" style={{ animationDelay: '-5s' }} />
+        <div className="absolute -top-[15%] -left-[10%] w-[50%] h-[50%] rounded-full blur-[140px] aura-animate"
+          style={{ background: 'radial-gradient(circle, rgba(46,202,198,0.12) 0%, transparent 70%)' }} />
+        <div className="absolute top-[55%] -right-[5%] w-[40%] h-[55%] rounded-full blur-[120px] aura-animate"
+          style={{ background: 'radial-gradient(circle, rgba(46,202,198,0.06) 0%, transparent 70%)', animationDelay: '-6s' }} />
+        <div className="absolute top-[25%] left-[40%] w-[30%] h-[30%] rounded-full blur-[100px] aura-animate-slow"
+          style={{ background: 'radial-gradient(circle, rgba(93,213,207,0.05) 0%, transparent 70%)', animationDelay: '-3s' }} />
       </div>
 
       <main className="relative z-10 w-full min-h-screen">
@@ -99,16 +103,18 @@ export default function App() {
           />
         ) : (
           <div className="flex items-center justify-center min-h-screen p-4 md:p-8">
-            {/* The "Virtual Device" Container */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="w-full max-w-md h-[852px] max-h-[90vh] glass-dark rounded-[3rem] shadow-premium relative overflow-hidden border border-white/10 flex flex-col"
+            {/* Virtual Device Container */}
+            <div className="w-full max-w-md h-[852px] max-h-[90vh] glass-dark rounded-[3rem] shadow-premium relative overflow-hidden border border-white/10 flex flex-col"
+              style={{ boxShadow: '0 30px 80px -10px rgba(0,0,0,0.8), 0 0 0 1px rgba(46,202,198,0.05), inset 0 1px 0 rgba(255,255,255,0.05)' }}
             >
-              {/* Dynamic Island / Status Bar simulation */}
+              {/* Dynamic Island */}
               <div className="absolute top-0 left-0 right-0 h-8 flex items-center justify-center z-50 pointer-events-none">
                 <div className="w-24 h-5 bg-black rounded-full mt-2" />
               </div>
+
+              {/* Teal accent line at top */}
+              <div className="absolute top-0 left-[20%] right-[20%] h-[1px] z-50"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(46,202,198,0.4), transparent)' }} />
 
               <div className="flex-1 overflow-y-auto scrollbar-hide">
                 {currentScreen === 'category' && selectedCategory && (
@@ -141,7 +147,7 @@ export default function App() {
                   />
                 )}
               </div>
-            </motion.div>
+            </div>
           </div>
         )}
       </main>

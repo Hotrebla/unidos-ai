@@ -55,42 +55,44 @@ export default function CategoryDetailsScreen({ categoryId, profile, onBack, onS
           </div>
         </div>
         
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${category.iconBgClass} border border-white/10 text-[10px] font-bold mb-6 uppercase tracking-[0.15em] shadow-lg shadow-black/20`}
-        >
-          <IconComponent size={14} />
-          <span>Contenido Académico</span>
-        </motion.div>
-        
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-4xl font-display font-medium tracking-tight mb-4 leading-tight text-white"
-        >
-          {category.title}
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-zinc-400 font-light leading-relaxed max-w-sm text-sm"
-        >
-          {category.description}
-        </motion.p>
-      </header>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 text-[10px] font-bold mb-6 uppercase tracking-[0.15em] shadow-lg"
+            style={{ background: 'rgba(46,202,198,0.08)', color: '#2ECAC6', borderColor: 'rgba(46,202,198,0.2)' }}
+          >
+            <IconComponent size={14} />
+            <span>Contenido Académico</span>
+          </motion.div>
 
-      {categoryId === 'padres' && (
-        <div className="space-y-4 relative z-10 mb-12">
-          <div className="flex items-center gap-3 mb-8 mt-4">
-            <div className="h-px bg-amber-500/20 flex-1" />
-            <h2 className="text-sm text-amber-500 font-semibold tracking-widest uppercase flex items-center gap-2">
-              <Sparkles size={14} /> Ruta de Aprendizaje
-            </h2>
-            <div className="h-px bg-amber-500/20 flex-1" />
-          </div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl font-display font-bold tracking-tight mb-4 leading-tight text-white"
+          >
+            {category.title}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-zinc-400 font-light leading-relaxed max-w-sm text-sm"
+          >
+            {category.description}
+          </motion.p>
+        </header>
+
+        {categoryId === 'padres' && (
+          <div className="space-y-4 relative z-10 mb-12">
+            <div className="flex items-center gap-3 mb-8 mt-4">
+              <div className="h-px flex-1" style={{ background: 'rgba(46,202,198,0.15)' }} />
+              <h2 className="text-[10px] font-bold tracking-[0.3em] uppercase flex items-center gap-2"
+                style={{ color: '#2ECAC6' }}>
+                <Sparkles size={12} /> Ruta de Aprendizaje
+              </h2>
+              <div className="h-px flex-1" style={{ background: 'rgba(46,202,198,0.15)' }} />
+            </div>
           
           <div className="relative py-8">
             {/* The vertical line */}
@@ -179,35 +181,35 @@ export default function CategoryDetailsScreen({ categoryId, profile, onBack, onS
               <div className="h-px bg-white/5 flex-1" />
             </div>
 
-            <div className="glass border-white/5 rounded-[2.5rem] p-8 relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-3xl rounded-full" />
-               <h3 className="text-white font-display text-lg font-medium mb-2">Duda de la comunidad</h3>
+            <div className="rounded-[2.5rem] p-8 relative overflow-hidden" style={{ background: 'rgba(46,202,198,0.05)', border: '1px solid rgba(46,202,198,0.1)' }}>
+               <div className="absolute top-0 right-0 w-32 h-32 blur-3xl rounded-full" style={{ background: 'rgba(46,202,198,0.08)' }} />
+               <h3 className="text-white font-display text-lg font-bold mb-2">Duda de la comunidad</h3>
                {unlockedMods.includes('m5') ? (
                  <>
                    <p className="text-sm text-zinc-400 mb-6">"¿Qué recomiendan preguntar en las reuniones de padres?"</p>
-                   <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-5">
+                   <div className="rounded-2xl p-5" style={{ background: 'rgba(46,202,198,0.08)', border: '1px solid rgba(46,202,198,0.15)' }}>
                      <div className="flex items-center gap-3 mb-3">
-                       <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs shadow-lg shadow-indigo-500/30">
+                       <div className="w-8 h-8 rounded-full flex items-center justify-center text-zinc-950 text-xs" style={{ background: '#2ECAC6' }}>
                          <Sparkles size={12} />
                        </div>
-                       <span className="text-xs font-semibold text-indigo-300 uppercase tracking-wider">Tutor Vitalis</span>
+                       <span className="text-xs font-bold uppercase tracking-wider" style={{ color: '#2ECAC6' }}>Tutor Unidos AI</span>
                      </div>
-                     <p className="text-sm text-indigo-100/90 leading-relaxed font-light">
-                       Otros padres de Vitalis recomiendan: en lugar de preguntar "¿Cómo se está portando?", pregunta "¿En qué área lo ve más motivado y cómo podemos potenciar eso desde casa?". El enfoque siempre debe ser de equipo.
+                     <p className="text-sm text-zinc-300 leading-relaxed font-light">
+                       Otros padres recomiendan: en lugar de preguntar "¿Cómo se está portando?", pregunta "¿En qué área lo ve más motivado y cómo podemos potenciar eso desde casa?". El enfoque siempre debe ser de equipo.
                      </p>
                    </div>
                  </>
                ) : (
                  <>
                    <p className="text-sm text-zinc-400 mb-6">"¿Cómo reaccionar ante un berrinche en público sin perder la paciencia?"</p>
-                   <div className="bg-indigo-500/10 border border-indigo-500/20 rounded-2xl p-5">
+                   <div className="rounded-2xl p-5" style={{ background: 'rgba(46,202,198,0.08)', border: '1px solid rgba(46,202,198,0.15)' }}>
                      <div className="flex items-center gap-3 mb-3">
-                       <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs shadow-lg shadow-indigo-500/30">
+                       <div className="w-8 h-8 rounded-full flex items-center justify-center text-zinc-950 text-xs" style={{ background: '#2ECAC6' }}>
                          <Sparkles size={12} />
                        </div>
-                       <span className="text-xs font-semibold text-indigo-300 uppercase tracking-wider">Tutor Vitalis</span>
+                       <span className="text-xs font-bold uppercase tracking-wider" style={{ color: '#2ECAC6' }}>Tutor Unidos AI</span>
                      </div>
-                     <p className="text-sm text-indigo-100/90 leading-relaxed font-light">
+                     <p className="text-sm text-zinc-300 leading-relaxed font-light">
                        En lugar de centrarte en las miradas de otros, baja al nivel visual de tu hijo y valida su frustración. Usa una frase corta: "Sé que estás molesto, querías llevar eso. Entiendo." No pidas calma gritando, ofrécela tú. Eres su ancla emocional.
                      </p>
                    </div>
@@ -240,15 +242,16 @@ export default function CategoryDetailsScreen({ categoryId, profile, onBack, onS
                   {/* Arrow pointing to avatar */}
                   <div className="absolute -bottom-2 right-0 w-3 h-3 bg-zinc-900 border-b border-r border-zinc-800 transform translate-x-1/2 translate-y-1/2 rotate-45"></div>
                </motion.div>
-               <motion.div 
-                 whileHover={{ scale: 1.1 }}
-                 className="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 p-1 shadow-[0_0_15px_rgba(245,158,11,0.3)] shrink-0"
-               >
-                  <div className="w-full h-full bg-zinc-950 rounded-full flex items-center justify-center border-2 border-transparent relative overflow-hidden">
-                     <div className="absolute inset-0 bg-amber-500/20 blur-xl"></div>
-                     <Sparkles size={20} className="text-amber-500 z-10" />
-                  </div>
-               </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="w-14 h-14 rounded-full p-1 shrink-0"
+                  style={{ background: 'linear-gradient(135deg, #2ECAC6, #5dd5cf)', boxShadow: '0 0 20px rgba(46,202,198,0.35)' }}
+                >
+                   <div className="w-full h-full bg-zinc-950 rounded-full flex items-center justify-center relative overflow-hidden">
+                      <div className="absolute inset-0 blur-xl" style={{ background: 'rgba(46,202,198,0.2)' }}></div>
+                      <span className="font-bold text-base z-10" style={{ color: '#2ECAC6' }}>Ü</span>
+                   </div>
+                </motion.div>
              </div>
           </div>
         </div>
@@ -275,7 +278,8 @@ export default function CategoryDetailsScreen({ categoryId, profile, onBack, onS
                      {expert.specialty}
                   </span>
                </div>
-               <div className="w-10 h-10 rounded-full bg-indigo-900/50 border border-indigo-500/30 flex items-center justify-center text-sm font-medium shrink-0">
+               <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-zinc-950 shrink-0"
+                 style={{ background: 'linear-gradient(135deg, #2ECAC6, #5dd5cf)' }}>
                  {expert.name[0]}
                </div>
             </div>
