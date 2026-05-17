@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { UserProfile } from '../lib/db';
 import { UNIDOS_COURSE } from '../lib/courses';
-import { BookOpen, Users, Star, Zap, Shield, Heart, ChevronRight, GraduationCap, Sparkles, Lock } from 'lucide-react';
+import { BookOpen, Users, Star, Monitor, Award, ChevronRight, Sparkles, Lock, Search } from 'lucide-react';
 
 interface Props {
   profile: UserProfile | null;
@@ -11,277 +11,243 @@ interface Props {
   onShowCommunity: () => void;
 }
 
+/* ── Logo SVG — doble lazo enlazado de Unidos ── */
+function UnidosLogo({ size = 36 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M12 6 C6 6 6 14 12 14 C18 14 18 6 12 6Z M28 6 C22 6 22 14 28 14 C34 14 34 6 28 6Z"
+        stroke="#2ECAC6" strokeWidth="2.5" fill="none"
+      />
+      <path
+        d="M12 14 C6 14 6 34 20 34 C34 34 34 14 28 14"
+        stroke="#2ECAC6" strokeWidth="2.5" fill="none" strokeLinecap="round"
+      />
+      <line x1="12" y1="14" x2="28" y2="14" stroke="#2ECAC6" strokeWidth="2.5" />
+    </svg>
+  );
+}
+
 const STATS = [
-  { value: '1,926', label: 'Sesiones IA', icon: Sparkles },
-  { value: '3,279', label: 'Padres Capacitados', icon: Users },
-  { value: '8', label: 'Módulos', icon: BookOpen },
-  { value: '100%', label: 'Satisfacción', icon: Star },
+  { value: '1,926', label: 'Sesiones IA completadas' },
+  { value: '3,279', label: 'Padres Capacitados' },
+  { value: '98%', label: 'Nivel de Satisfacción' },
+  { value: '8', label: 'Módulos del Programa' },
+];
+
+const FEATURE_CARDS = [
+  { icon: Monitor, title: 'Desarrolla tus habilidades', desc: 'Involúcrate en el aprendizaje de tu hijo, repotenciando tus habilidades para un mejor futuro y diciendo adiós al pasado.', cta: '¡Empezar ahora!' },
+  { icon: BookOpen, title: 'Aprende a tu propio ritmo', desc: 'En Unidos AI no conocerás barreras de tiempo ni de lugar. Sesiones de 5 minutos disponibles 24/7 con IA.', cta: '¡Empezar ahora!' },
+  { icon: Award, title: 'Aprende con tutores IA', desc: 'Estudia con tutores IA especializados en diferentes áreas del desarrollo parental, disponibles cuando los necesites.', cta: '¡Empezar ahora!' },
 ];
 
 const TUTORES = [
-  {
-    name: 'Elena',
-    role: 'Psicóloga Familiar IA',
-    specialty: 'Comunicación, Disciplina Positiva y Vínculos Emocionales',
-    modules: 'Módulos 1–3',
-    emoji: '👩‍🏫',
-    color: 'rgba(46,202,198,0.08)',
-    border: 'rgba(46,202,198,0.2)',
-  },
-  {
-    name: 'Marcos',
-    role: 'Especialista en Desarrollo IA',
-    specialty: 'Etapas del Desarrollo, Educación y Rutinas Familiares',
-    modules: 'Módulos 4–6',
-    emoji: '👨‍💼',
-    color: 'rgba(93,213,207,0.06)',
-    border: 'rgba(93,213,207,0.15)',
-  },
-  {
-    name: 'Sofía',
-    role: 'Consejera de Resiliencia IA',
-    specialty: 'Proyecto de Vida Familiar, Metas y Bienestar Integral',
-    modules: 'Módulos 7–8',
-    emoji: '👩‍⚕️',
-    color: 'rgba(46,202,198,0.05)',
-    border: 'rgba(46,202,198,0.12)',
-  },
-];
-
-const PILARES = [
-  { icon: Zap, title: 'Potenciando Capacidades', desc: 'Fomentamos las habilidades parentales desde la primera instancia familiar.' },
-  { icon: Shield, title: 'Reforzando las Bases', desc: 'Aunados a la familia, reforzamos las bases del desarrollo emocional.' },
-  { icon: Heart, title: 'Instrucción Familiar', desc: 'Actividades para lograr autoestima y autorrealización en los hijos.' },
-  { icon: GraduationCap, title: 'Sistema Educativo Eficiente', desc: 'Promovemos un sistema que no limite la independencia del niño.' },
+  { name: 'Elena', role: 'Psicóloga Familiar IA', specialty: 'Comunicación y Disciplina Positiva', modules: 'Módulos 1–3', emoji: '👩‍🏫' },
+  { name: 'Marcos', role: 'Especialista en Desarrollo IA', specialty: 'Desarrollo Infantil y Educación', modules: 'Módulos 4–6', emoji: '👨‍💼' },
+  { name: 'Sofía', role: 'Consejera de Resiliencia IA', specialty: 'Proyecto de Vida y Bienestar', modules: 'Módulos 7–8', emoji: '👩‍⚕️' },
 ];
 
 export default function HomeScreen({ profile, onSelectCategory, onStartIntake, onLogout, onShowCommunity }: Props) {
   const unlockedMods = profile?.unlockedModules || ['m1'];
 
   return (
-    <div className="min-h-screen text-zinc-50 overflow-x-hidden">
+    <div style={{ background: '#ffffff', color: '#333333', fontFamily: 'Inter, sans-serif', minHeight: '100vh' }}>
 
       {/* ── NAVBAR ── */}
-      <nav className="sticky top-0 z-50 border-b border-white/5"
-        style={{ background: 'rgba(5,5,5,0.85)', backdropFilter: 'blur(20px)' }}>
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav style={{ background: '#ffffff', borderBottom: '1px solid #e8e8e8', position: 'sticky', top: 0, zIndex: 100 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
           {/* Logo */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-zinc-950 text-lg"
-              style={{ background: 'linear-gradient(135deg, #2ECAC6, #5dd5cf)' }}>
-              Ü
-            </div>
-            <span className="font-bold text-sm tracking-[0.15em] uppercase text-white">Unidos AI</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+            <UnidosLogo size={32} />
+            <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '0.12em', color: '#333', textTransform: 'uppercase' }}>Unidos</span>
           </div>
 
-          {/* Nav Links — desktop */}
-          <div className="hidden md:flex items-center gap-8 text-sm text-zinc-400">
-            <a href="#cursos" className="hover:text-teal-400 transition-colors">Cursos</a>
-            <a href="#especialistas" className="hover:text-teal-400 transition-colors">Especialistas IA</a>
-            <a href="#nosotros" className="hover:text-teal-400 transition-colors">Nosotros</a>
-            <button onClick={onShowCommunity} className="hover:text-teal-400 transition-colors">Comunidad</button>
+          {/* Search */}
+          <div style={{ display: 'flex', alignItems: 'center', background: '#f5f5f5', borderRadius: 24, padding: '6px 14px', gap: 8, maxWidth: 240, flex: 1 }}>
+            <Search size={14} color="#999" />
+            <input placeholder="Buscar" style={{ border: 'none', background: 'transparent', fontSize: 13, color: '#333', outline: 'none', width: '100%' }} />
+          </div>
+
+          {/* Nav links */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 24, fontSize: 13, color: '#555', flexShrink: 0 }}>
+            <a href="#" style={{ color: '#2ECAC6', fontWeight: 600, textDecoration: 'none' }}>Home</a>
+            <a href="#sobre" style={{ color: '#555', textDecoration: 'none' }}>Nosotros</a>
+            <a href="#cursos" style={{ color: '#555', textDecoration: 'none' }}>Cursos</a>
+            <button onClick={onShowCommunity} style={{ color: '#555', background: 'none', border: 'none', cursor: 'pointer', fontSize: 13 }}>Comunidad</button>
           </div>
 
           {/* CTA */}
           {profile ? (
-            <div className="flex items-center gap-3">
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
               <button onClick={() => onSelectCategory('padres')}
-                className="btn-teal text-xs px-4 py-2">
-                Mis Módulos
+                style={{ background: '#2ECAC6', color: '#fff', border: 'none', borderRadius: 24, padding: '8px 18px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>
+                👤 Mis Módulos
               </button>
-              <button onClick={onLogout}
-                className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
-                Salir
-              </button>
+              <button onClick={onLogout} style={{ background: 'none', border: 'none', color: '#999', fontSize: 12, cursor: 'pointer' }}>Salir</button>
             </div>
           ) : (
-            <button onClick={onStartIntake} className="btn-teal text-xs px-5 py-2.5">
-              Iniciar sesión
+            <button onClick={onStartIntake}
+              style={{ background: '#2ECAC6', color: '#fff', border: 'none', borderRadius: 24, padding: '8px 20px', fontSize: 13, fontWeight: 600, cursor: 'pointer', flexShrink: 0 }}>
+              👤 Iniciar sesión / Registrarse
             </button>
           )}
         </div>
       </nav>
 
       {/* ── HERO ── */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-        {/* Background image overlay */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-zinc-950/80 to-transparent z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent z-10" />
-          <div className="w-full h-full bg-zinc-900"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1609220136736-443140cffec6?w=1400&q=80')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center right',
-            }} />
+      <section style={{ position: 'relative', minHeight: '75vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+        {/* Background family photo */}
+        <div style={{ position: 'absolute', inset: 0 }}>
+          <img
+            src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=1400&q=80"
+            alt="Familia aprendiendo juntos"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+          />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.55) 100%)' }} />
         </div>
 
-        {/* Organic decorative shapes */}
-        <div className="absolute right-[5%] top-[10%] w-64 h-64 blob opacity-30 z-5"
-          style={{ background: 'linear-gradient(135deg, rgba(46,202,198,0.3), rgba(93,213,207,0.1))' }} />
-        <div className="absolute right-[15%] bottom-[15%] w-32 h-32 blob-2 opacity-20 z-5"
-          style={{ background: 'rgba(46,202,198,0.4)' }} />
+        {/* Dot pattern */}
+        <div style={{ position: 'absolute', left: '38%', top: '30%', display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 12, opacity: 0.6 }}>
+          {Array.from({ length: 25 }).map((_, i) => (
+            <div key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#2ECAC6' }} />
+          ))}
+        </div>
 
-        <div className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 py-24">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <p className="text-xs font-bold tracking-[0.3em] uppercase mb-5"
-              style={{ color: '#2ECAC6' }}>
-              EDUCACIÓN ONLINE PARA PADRES
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.05] tracking-tight mb-8 max-w-2xl">
-              Potencia tus{' '}
-              <span style={{ color: '#2ECAC6' }}>habilidades</span>{' '}
-              y contribuye al desarrollo de tus hijos.
+        {/* Hero content — right aligned */}
+        <div style={{ position: 'relative', zIndex: 10, maxWidth: 1200, margin: '0 auto', padding: '80px 24px', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            style={{ maxWidth: 520, color: '#fff' }}
+          >
+            <h1 style={{ fontSize: 'clamp(28px,4vw,48px)', fontWeight: 700, lineHeight: 1.15, marginBottom: 20, textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
+              Potencia tus habilidades con IA y contribuye en el desarrollo de tus hijos.
             </h1>
-            <p className="text-zinc-400 text-lg font-light leading-relaxed max-w-xl mb-4">
-              ¿Quieres involucrarte en el desarrollo de tus hijos, en cualquier momento y en cualquier lugar?
+            <p style={{ fontSize: 16, lineHeight: 1.7, marginBottom: 28, opacity: 0.9 }}>
+              Nuestra comunidad de padres sigue creciendo y valoran nuestra contribución a la sociedad.
             </p>
-            <p className="text-zinc-300 font-medium max-w-xl mb-10 leading-relaxed">
-              Haz crecer tu conocimiento y construye un correcto desarrollo emocional y educativo de tus hijos con IA disponible 24/7.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={profile ? () => onSelectCategory('padres') : onStartIntake}
-                className="btn-teal px-8 py-4 text-sm flex items-center gap-2.5 shadow-teal">
-                <Users size={16} />
-                {profile ? 'Continuar mi ruta' : 'Ver todos los módulos'}
-              </button>
-              <button
-                onClick={onShowCommunity}
-                className="btn-outline-teal px-8 py-4 text-sm">
-                Comunidad Unidos
-              </button>
-            </div>
+            <button
+              onClick={profile ? () => onSelectCategory('padres') : onStartIntake}
+              style={{ background: '#2ECAC6', color: '#fff', border: 'none', borderRadius: 6, padding: '14px 28px', fontSize: 15, fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <Users size={16} />
+              Ver todos los módulos
+            </button>
           </motion.div>
         </div>
       </section>
 
-      {/* ── STATS ── */}
-      <section className="py-20 border-y border-white/5" style={{ background: 'rgba(46,202,198,0.03)' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {STATS.map((s, i) => (
-              <motion.div
-                key={s.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="text-center"
-              >
-                <p className="text-4xl md:text-5xl font-bold font-display mb-2"
-                  style={{ color: '#2ECAC6' }}>
-                  {s.value}
-                </p>
-                <p className="text-xs text-zinc-500 uppercase tracking-[0.2em] font-semibold">{s.label}</p>
-              </motion.div>
-            ))}
-          </div>
+      {/* ── 3 FEATURE CARDS ── */}
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 0, marginTop: -60, position: 'relative', zIndex: 20 }}>
+          {FEATURE_CARDS.map((card, i) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.15 }}
+              onClick={profile ? () => onSelectCategory('padres') : onStartIntake}
+              style={{
+                background: '#2ECAC6',
+                padding: '36px 28px',
+                cursor: 'pointer',
+                borderRight: i < 2 ? '1px solid rgba(255,255,255,0.2)' : 'none',
+              }}
+            >
+              <card.icon size={40} color="#fff" style={{ marginBottom: 16 }} />
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 12, lineHeight: 1.3 }}>{card.title}</h3>
+              <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.9)', lineHeight: 1.7, marginBottom: 20 }}>{card.desc}</p>
+              <span style={{ color: '#fff', fontWeight: 600, fontSize: 14, textDecoration: 'underline', cursor: 'pointer' }}>{card.cta}</span>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* ── ABOUT / PILARES ── */}
-      <section id="nosotros" className="py-24 max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          {/* Left: Organic image collage */}
-          <div className="relative h-[480px] hidden md:block">
-            <div className="absolute top-0 left-0 w-56 h-56 blob overflow-hidden border-4 border-zinc-900">
-              <img src="https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?w=400&q=80" className="w-full h-full object-cover" alt="Familia" />
+      {/* ── STATS ── */}
+      <section style={{ background: '#f9fffe', borderTop: '1px solid #e0f7f6', borderBottom: '1px solid #e0f7f6', padding: '60px 24px', marginTop: 60 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 32, textAlign: 'center' }}>
+          {STATS.map((s, i) => (
+            <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+              <p style={{ fontSize: 44, fontWeight: 700, color: '#2ECAC6', lineHeight: 1, marginBottom: 8 }}>{s.value}</p>
+              <p style={{ fontSize: 13, color: '#888', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 500 }}>{s.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── SOBRE NOSOTROS ── */}
+      <section id="sobre" style={{ maxWidth: 1200, margin: '80px auto', padding: '0 24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+          {/* Collage de imágenes con formas orgánicas */}
+          <div style={{ position: 'relative', height: 460 }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: 220, height: 220, borderRadius: '62% 38% 46% 54% / 60% 44% 56% 40%', overflow: 'hidden', border: '4px solid #fff', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
+              <img src="https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?w=400&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Familia" />
             </div>
-            <div className="absolute top-[30%] right-0 w-48 h-48 blob-2 overflow-hidden border-4 border-zinc-900">
-              <img src="https://images.unsplash.com/photo-1581952976147-5a2d15560349?w=400&q=80" className="w-full h-full object-cover" alt="Padre e hijo" />
+            <div style={{ position: 'absolute', top: '30%', right: 0, width: 190, height: 190, borderRadius: '38% 62% 54% 46% / 44% 60% 40% 56%', overflow: 'hidden', border: '4px solid #fff', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
+              <img src="https://images.unsplash.com/photo-1581952976147-5a2d15560349?w=400&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Padre e hijo" />
             </div>
-            <div className="absolute bottom-0 left-[20%] w-52 h-52 blob overflow-hidden border-4 border-zinc-900">
-              <img src="https://images.unsplash.com/photo-1491013516836-7db643ee125a?w=400&q=80" className="w-full h-full object-cover" alt="Familia feliz" />
+            <div style={{ position: 'absolute', bottom: 0, left: '20%', width: 200, height: 200, borderRadius: '50% 50% 62% 38% / 50% 50% 46% 54%', overflow: 'hidden', border: '4px solid #fff', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
+              <img src="https://images.unsplash.com/photo-1491013516836-7db643ee125a?w=400&q=80" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Familia feliz" />
             </div>
-            {/* Decorative Ü */}
-            <div className="absolute top-[45%] left-[38%] text-8xl font-bold opacity-10 select-none pointer-events-none"
-              style={{ color: '#2ECAC6' }}>Ü</div>
-            {/* Dot patterns */}
-            <div className="absolute top-[10%] right-[10%] grid grid-cols-5 gap-2">
+            {/* Dot decoration */}
+            <div style={{ position: 'absolute', bottom: '10%', right: '5%', display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 8 }}>
               {Array.from({ length: 25 }).map((_, i) => (
-                <div key={i} className="w-1.5 h-1.5 rounded-full bg-teal-500/30" />
+                <div key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#2ECAC6', opacity: 0.4 }} />
               ))}
             </div>
           </div>
 
-          {/* Right: Content */}
+          {/* Content */}
           <div>
-            <p className="text-xs font-bold tracking-[0.3em] uppercase mb-4" style={{ color: '#2ECAC6' }}>
-              EDUCACIÓN ONLINE PARA PADRES
-            </p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold leading-tight mb-6 tracking-tight">
+            <p style={{ color: '#2ECAC6', fontSize: 12, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: 16 }}>EDUCACIÓN ONLINE PARA PADRES</p>
+            <h2 style={{ fontSize: 36, fontWeight: 700, lineHeight: 1.25, marginBottom: 20, color: '#222' }}>
               ¡Desarrolla tus habilidades desde cualquier lugar!
             </h2>
-            <p className="text-zinc-400 font-light leading-relaxed mb-4">
+            <p style={{ fontSize: 15, lineHeight: 1.8, color: '#666', marginBottom: 12 }}>
               Entendemos que el aprendizaje en línea supone un cambio significativo para llegar a los padres de todo el mundo.
             </p>
-            <p className="text-zinc-300 font-medium leading-relaxed mb-10">
-              Unidos AI dota a los padres de una educación que posibilita un correcto desarrollo emocional y educativo de sus hijos, usando la tecnología de Inteligencia Artificial para promover su participación consciente y activa.
+            <p style={{ fontSize: 15, lineHeight: 1.8, color: '#555', marginBottom: 32 }}>
+              Unidos AI dota a los padres de una educación que posibilita un correcto desarrollo emocional y educativo de sus hijos, usando la tecnología de Inteligencia Artificial disponible 24/7.
             </p>
-
-            <div className="grid grid-cols-2 gap-4 mb-10">
-              {PILARES.map((p) => (
-                <div key={p.title} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: 'rgba(46,202,198,0.1)', border: '1px solid rgba(46,202,198,0.2)' }}>
-                    <p.icon size={14} style={{ color: '#2ECAC6' }} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-white mb-1">{p.title}</p>
-                    <p className="text-xs text-zinc-500 leading-relaxed">{p.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button onClick={profile ? () => onSelectCategory('padres') : onStartIntake}
-              className="btn-teal px-7 py-3.5 text-sm flex items-center gap-2">
+            <button
+              onClick={profile ? () => onSelectCategory('padres') : onStartIntake}
+              style={{ background: '#2ECAC6', color: '#fff', border: 'none', borderRadius: 6, padding: '12px 24px', fontSize: 14, fontWeight: 600, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
               <BookOpen size={15} /> Ver todos los módulos
             </button>
           </div>
         </div>
       </section>
 
-      {/* ── TUTORES IA (Especialistas) ── */}
-      <section id="especialistas" className="py-24 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <p className="text-xs font-bold tracking-[0.3em] uppercase mb-4" style={{ color: '#2ECAC6' }}>
-              ESPECIALISTA DEL CURSO
-            </p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4">
-              Tutores IA de Unidos
-            </h2>
-            <p className="text-zinc-400 font-light max-w-xl mx-auto leading-relaxed">
-              ¡Nuestras clases están acreditadas por el Modelo ProLab (PUCP)!<br />
-              ¡Descubre la mejor experiencia en cursos virtuales para padres!
+      {/* ── TUTORES IA ── */}
+      <section style={{ background: '#f9fffe', padding: '80px 24px', borderTop: '1px solid #e0f7f6' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <p style={{ color: '#2ECAC6', fontSize: 12, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: 12 }}>ESPECIALISTAS DEL CURSO</p>
+            <h2 style={{ fontSize: 36, fontWeight: 700, color: '#222', marginBottom: 12 }}>Tutores IA de Unidos</h2>
+            <p style={{ color: '#888', fontSize: 15, maxWidth: 500, margin: '0 auto' }}>
+              ¡Nuestras clases están acreditadas por el Modelo ProLab (PUCP)!
             </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
             {TUTORES.map((t, i) => (
               <motion.div
                 key={t.name}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                className="rounded-3xl p-7 cursor-pointer group"
-                style={{ background: t.color, border: `1px solid ${t.border}` }}
+                whileHover={{ y: -4, boxShadow: '0 12px 36px rgba(46,202,198,0.15)' }}
                 onClick={profile ? () => onSelectCategory('padres') : onStartIntake}
+                style={{ background: '#fff', border: '1px solid #e0f7f6', borderRadius: 16, padding: '32px 28px', cursor: 'pointer', transition: 'all 0.3s' }}
               >
-                <div className="text-5xl mb-5">{t.emoji}</div>
-                <h3 className="text-xl font-display font-bold text-white mb-1">{t.name}</h3>
-                <p className="text-xs font-bold mb-4" style={{ color: '#2ECAC6' }}>{t.role}</p>
-                <p className="text-sm text-zinc-400 font-light leading-relaxed mb-6">{t.specialty}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-zinc-500 font-medium">{t.modules}</span>
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform"
-                    style={{ background: 'rgba(46,202,198,0.15)' }}>
-                    <ChevronRight size={14} style={{ color: '#2ECAC6' }} />
+                <div style={{ fontSize: 48, marginBottom: 16 }}>{t.emoji}</div>
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#222', marginBottom: 4 }}>{t.name}</h3>
+                <p style={{ fontSize: 12, color: '#2ECAC6', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 12 }}>{t.role}</p>
+                <p style={{ fontSize: 14, color: '#777', lineHeight: 1.7, marginBottom: 20 }}>{t.specialty}</p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 12, color: '#aaa', fontWeight: 500 }}>{t.modules}</span>
+                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#f0fcfb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ChevronRight size={14} color="#2ECAC6" />
                   </div>
                 </div>
               </motion.div>
@@ -290,140 +256,95 @@ export default function HomeScreen({ profile, onSelectCategory, onStartIntake, o
         </div>
       </section>
 
-      {/* ── MÓDULOS (Course Grid) ── */}
-      <section id="cursos" className="py-24 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <p className="text-xs font-bold tracking-[0.3em] uppercase mb-4" style={{ color: '#2ECAC6' }}>
-              APRENDE A TU PROPIO RITMO
-            </p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-4">
-              Nuestros módulos populares
-            </h2>
-            <p className="text-zinc-400 font-light max-w-xl mx-auto">
-              ¡Explora todos nuestros módulos y elige los adecuados para comenzar a aprender con nosotros!
-            </p>
-          </div>
+      {/* ── MÓDULOS ── */}
+      <section id="cursos" style={{ maxWidth: 1200, margin: '80px auto', padding: '0 24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: 56 }}>
+          <p style={{ color: '#2ECAC6', fontSize: 12, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: 12 }}>APRENDE A TU PROPIO RITMO</p>
+          <h2 style={{ fontSize: 36, fontWeight: 700, color: '#222', marginBottom: 12 }}>Nuestros módulos populares</h2>
+          <p style={{ color: '#888', fontSize: 15, maxWidth: 480, margin: '0 auto' }}>
+            Explora todos nuestros módulos y elige los adecuados para comenzar tu camino.
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {UNIDOS_COURSE.map((mod, i) => {
-              const isUnlocked = unlockedMods.includes(mod.id) || i === 0;
-              const isCompleted = isUnlocked && i < unlockedMods.length - 1;
-              const isActive = isUnlocked && i === unlockedMods.length - 1;
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
+          {UNIDOS_COURSE.map((mod, i) => {
+            const isUnlocked = unlockedMods.includes(mod.id) || i === 0;
+            const isCompleted = isUnlocked && i < unlockedMods.length - 1;
+            const isActive = isUnlocked && i === unlockedMods.length - 1;
 
-              return (
-                <motion.div
-                  key={mod.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: (i % 3) * 0.1 }}
-                  whileHover={isUnlocked ? { y: -4, transition: { duration: 0.2 } } : {}}
-                  onClick={() => { if (isUnlocked) onSelectCategory('padres'); else if (!profile) onStartIntake(); }}
-                  className={`rounded-3xl overflow-hidden border transition-all duration-300 ${isUnlocked ? 'cursor-pointer' : 'opacity-60 cursor-default'}`}
-                  style={{
-                    background: isActive ? 'rgba(46,202,198,0.07)' : 'rgba(255,255,255,0.03)',
-                    borderColor: isActive ? 'rgba(46,202,198,0.3)' : 'rgba(255,255,255,0.07)',
-                  }}
-                >
-                  {/* Card header */}
-                  <div className="p-6 pb-0">
-                    <div className="flex items-start justify-between mb-4">
-                      <span className="text-3xl">{mod.emoji}</span>
-                      {isCompleted ? (
-                        <span className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"
-                          style={{ background: 'rgba(46,202,198,0.15)', color: '#2ECAC6' }}>
-                          Completado
-                        </span>
-                      ) : isActive ? (
-                        <span className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider"
-                          style={{ background: 'rgba(46,202,198,0.2)', color: '#2ECAC6', border: '1px solid rgba(46,202,198,0.3)' }}>
-                          Activo
-                        </span>
-                      ) : isUnlocked ? null : (
-                        <Lock size={14} className="text-zinc-600 mt-1" />
-                      )}
-                    </div>
-                    <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-zinc-600 mb-2">
-                      Módulo {i + 1}
-                    </p>
-                    <h3 className="text-base font-display font-bold text-white mb-3 leading-snug">
-                      {mod.title.replace(`Módulo ${i + 1}: `, '')}
-                    </h3>
-                    <p className="text-xs text-zinc-500 font-light leading-relaxed mb-5">
-                      {mod.description}
-                    </p>
-                  </div>
-
-                  {/* Card footer */}
-                  <div className="px-6 py-4 flex items-center justify-between border-t border-white/5">
-                    <div className="flex items-center gap-2 text-zinc-500 text-xs">
-                      <Sparkles size={11} style={{ color: '#2ECAC6' }} />
-                      <span>Tutor IA · {mod.tutorId === 'elena' ? 'Elena' : mod.tutorId === 'marcos' ? 'Marcos' : 'Sofía'}</span>
-                    </div>
-                    {isUnlocked && (
-                      <ChevronRight size={14} className="text-zinc-600" />
+            return (
+              <motion.div
+                key={mod.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (i % 3) * 0.08 }}
+                whileHover={isUnlocked ? { y: -3, boxShadow: '0 8px 28px rgba(46,202,198,0.12)' } : {}}
+                onClick={() => { if (isUnlocked) onSelectCategory('padres'); else if (!profile) onStartIntake(); }}
+                style={{
+                  background: isActive ? '#f0fcfb' : '#fff',
+                  border: isActive ? '2px solid #2ECAC6' : '1px solid #eee',
+                  borderRadius: 14,
+                  overflow: 'hidden',
+                  cursor: isUnlocked ? 'pointer' : 'default',
+                  opacity: !isUnlocked ? 0.6 : 1,
+                  transition: 'all 0.25s',
+                }}
+              >
+                <div style={{ padding: '24px 22px' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 14 }}>
+                    <span style={{ fontSize: 28 }}>{mod.emoji}</span>
+                    {isCompleted && (
+                      <span style={{ fontSize: 10, fontWeight: 700, background: '#2ECAC6', color: '#fff', borderRadius: 20, padding: '3px 10px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>✓ Completado</span>
                     )}
+                    {isActive && (
+                      <span style={{ fontSize: 10, fontWeight: 700, background: '#2ECAC6', color: '#fff', borderRadius: 20, padding: '3px 10px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Activo</span>
+                    )}
+                    {!isUnlocked && <Lock size={14} color="#ccc" />}
                   </div>
-                </motion.div>
-              );
-            })}
+                  <p style={{ fontSize: 10, color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: 6 }}>Módulo {i + 1}</p>
+                  <h3 style={{ fontSize: 15, fontWeight: 700, color: '#222', lineHeight: 1.4, marginBottom: 10 }}>
+                    {mod.title.replace(`Módulo ${i + 1}: `, '')}
+                  </h3>
+                  <p style={{ fontSize: 13, color: '#888', lineHeight: 1.6 }}>{mod.description}</p>
+                </div>
+                <div style={{ padding: '12px 22px', borderTop: '1px solid #f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: isActive ? 'rgba(46,202,198,0.05)' : '#fafafa' }}>
+                  <span style={{ fontSize: 12, color: '#aaa', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <Sparkles size={11} color="#2ECAC6" />
+                    Tutor IA · {mod.tutorId === 'elena' ? 'Elena' : mod.tutorId === 'marcos' ? 'Marcos' : 'Sofía'}
+                  </span>
+                  {isUnlocked && <ChevronRight size={14} color="#ccc" />}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {!profile && (
+          <div style={{ textAlign: 'center', marginTop: 56 }}>
+            <button onClick={onStartIntake}
+              style={{ background: '#2ECAC6', color: '#fff', border: 'none', borderRadius: 6, padding: '14px 36px', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}>
+              ¡Únete gratis ahora!
+            </button>
+            <p style={{ fontSize: 13, color: '#aaa', marginTop: 12 }}>
+              Accede a la mejor manera de involucrarte en el desarrollo de tu hijo.{' '}
+              <button onClick={onStartIntake} style={{ color: '#2ECAC6', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Únete gratis ahora.</button>
+            </p>
           </div>
-
-          {!profile && (
-            <div className="text-center mt-14">
-              <button onClick={onStartIntake} className="btn-teal px-10 py-4 text-sm">
-                Únete gratis ahora
-              </button>
-              <p className="text-xs text-zinc-600 mt-3">
-                Accede a la mejor manera de involucrarte en el desarrollo de tu hijo.
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ── CTA FINAL ── */}
-      <section className="py-24 border-t border-white/5 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse at center, rgba(46,202,198,0.05) 0%, transparent 70%)' }} />
-        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-          <p className="text-xs font-bold tracking-[0.3em] uppercase mb-5" style={{ color: '#2ECAC6' }}>
-            PILARES DE ENSEÑANZA
-          </p>
-          <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6">
-            Accede a Unidos AI<br />
-            <span className="text-zinc-400 font-light">Una plataforma educativa que promueve un buen sistema familiar</span>
-          </h2>
-          <p className="text-zinc-400 font-light leading-relaxed mb-2 max-w-xl mx-auto">
-            Un sistema de enseñanza para potenciar a los padres, permitirá dar a conocer la importancia del desarrollo de todos los factores parentales, dotando a la sociedad de buenos miembros.
-          </p>
-          <p className="text-xs text-zinc-600 mb-10">
-            Basado en la Tesis ProLab PUCP · Raúl Gonzáles Morales
-          </p>
-          <button onClick={profile ? () => onSelectCategory('padres') : onStartIntake}
-            className="btn-teal px-12 py-4 text-sm shadow-teal">
-            ¡Comienza Ya!
-          </button>
-        </div>
+        )}
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t border-white/5 py-12 px-6" style={{ background: 'rgba(0,0,0,0.4)' }}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-zinc-950 text-base"
-              style={{ background: 'linear-gradient(135deg, #2ECAC6, #5dd5cf)' }}>
-              Ü
-            </div>
-            <span className="font-bold text-xs tracking-[0.15em] uppercase text-zinc-400">Unidos AI</span>
+      <footer style={{ background: '#f5f5f5', borderTop: '1px solid #e8e8e8', padding: '40px 24px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <UnidosLogo size={28} />
+            <span style={{ fontWeight: 700, fontSize: 13, letterSpacing: '0.12em', color: '#555', textTransform: 'uppercase' }}>Unidos AI</span>
           </div>
-          <p className="text-xs text-zinc-600 flex items-center gap-2">
-            Tecnología al servicio del bienestar familiar <Heart size={12} style={{ color: '#2ECAC6' }} />
-          </p>
-          <div className="flex gap-6 text-xs text-zinc-600">
-            <a href="#" className="hover:text-zinc-400 transition-colors">Privacidad</a>
-            <a href="#" className="hover:text-zinc-400 transition-colors">Términos</a>
+          <p style={{ fontSize: 12, color: '#aaa' }}>Tecnología al servicio del bienestar familiar · Basado en Tesis ProLab PUCP</p>
+          <div style={{ display: 'flex', gap: 20, fontSize: 12, color: '#aaa' }}>
+            <a href="#" style={{ color: '#aaa', textDecoration: 'none' }}>Privacidad</a>
+            <a href="#" style={{ color: '#aaa', textDecoration: 'none' }}>Términos</a>
           </div>
         </div>
       </footer>
