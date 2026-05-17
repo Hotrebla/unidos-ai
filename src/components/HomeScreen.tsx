@@ -11,19 +11,20 @@ interface Props {
   onShowCommunity: () => void;
 }
 
-/* ── Logo SVG — doble lazo enlazado de Unidos ── */
+/* ── Logo SVG — fiel al original Unidos  ── */
 function UnidosLogo({ size = 36 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Lazo izquierdo: óvalo vertical con gancho hacia abajo-izquierda */}
       <path
-        d="M12 6 C6 6 6 14 12 14 C18 14 18 6 12 6Z M28 6 C22 6 22 14 28 14 C34 14 34 6 28 6Z"
-        stroke="#2ECAC6" strokeWidth="2.5" fill="none"
+        d="M8,3 A5,7 0 1,0 8,17 Q5,22 4,27"
+        stroke="#2ECAC6" strokeWidth="2.2" strokeLinecap="round" fill="none"
       />
+      {/* Lazo derecho: ídem desplazado */}
       <path
-        d="M12 14 C6 14 6 34 20 34 C34 34 34 14 28 14"
-        stroke="#2ECAC6" strokeWidth="2.5" fill="none" strokeLinecap="round"
+        d="M20,3 A5,7 0 1,0 20,17 Q17,22 16,27"
+        stroke="#2ECAC6" strokeWidth="2.2" strokeLinecap="round" fill="none"
       />
-      <line x1="12" y1="14" x2="28" y2="14" stroke="#2ECAC6" strokeWidth="2.5" />
     </svg>
   );
 }
